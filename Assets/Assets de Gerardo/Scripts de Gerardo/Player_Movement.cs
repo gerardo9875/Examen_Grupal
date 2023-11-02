@@ -1,31 +1,66 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player_Movement : MonoBehaviour
 {
+    [NonSerialized] public Rigidbody2D playerRb;
 
+    [Header("Movimiento")]
     [SerializeField] private float speed;
-    [SerializeField] private Rigidbody2D rb;
+    [NonSerialized] public Vector2 moveInput;
+    [NonSerialized] public bool canMove = true;
 
-    // Start is called before the first frame update
-    void Start()
+    [Header("Dash/Rodada")]
+    public float distancedash;
+    public float duraciondash;
+    public float cooldowndash;
+    private bool candash = true;
+    private bool isdashing = false;
+
+    private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        playerRb = GetComponent<Rigidbody2D>();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         Movement();
+
+        if(Input.GetKeyDown(KeyCode.Space) && candash)
+        {
+            StartCoroutine(Dash());
+        }
     }
 
-    private void Movement()
+    private void FixedUpdate()
+    {
+
+        if(!isdashing && canMove)
+        {
+            playerRb.MovePosition(playerRb.position + moveInput * speed * Time.fixedDeltaTime);
+        }
+        
+    }
+
+    void Movement()
     {
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
-
-        rb.velocity = new Vector2(moveX * speed, moveY * speed); ;
+        moveInput = new Vector2(moveX, moveY);
     }
 
+    IEnumerator Dash()
+    {
+        candash = false;
+        isdashing = true;
+        playerRb.velocity = moveInput.normalized * distancedash / duraciondash;
+        yield return new WaitForSeconds(duraciondash);
+        isdashing = false;
+        playerRb.velocity = Vector2.zero;
+        yield return new WaitForSeconds(cooldowndash);
+        candash = true;
+    }
 }
