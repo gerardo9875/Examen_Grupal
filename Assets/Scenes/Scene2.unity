@@ -276,7 +276,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &313043646
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -338,7 +338,7 @@ Transform:
   m_GameObject: {fileID: 313043643}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.92, y: -2.3, z: 0}
+  m_LocalPosition: {x: 0.25, y: -2.22, z: 0}
   m_LocalScale: {x: 0.9776265, y: 0.9776439, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -375,38 +375,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLife: 6
   currentlife: 6
---- !u!1 &822355971
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 822355972}
-  m_Layer: 0
-  m_Name: AttackController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &822355972
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 822355971}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2048400016}
-  m_Father: {fileID: 1034380509}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1034380505
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,7 +452,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -499,7 +467,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 4.2
 --- !u!212 &1034380508
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -564,8 +532,7 @@ Transform:
   m_LocalPosition: {x: -6.7101, y: 0.1156, z: 0}
   m_LocalScale: {x: 2.4397576, y: 0.6887, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 822355972}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1034380510
@@ -580,30 +547,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea5aac33fce3124d9bf6dfeaa8fbd74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLife: {fileID: 0}
-  Radius: 5
-  currentRadius: 5
-  UnfollowDelay: 2
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  ratonLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  target: {fileID: 0}
-  raton: {fileID: 0}
-  RunSpeed: 4
-  minDistance: 6
-  attackRadius: 1
-  attackController: {fileID: 822355972}
-  attackRaycastPos: {fileID: 2048400016}
-  attackDelay: 0.7
-  passedTime: 0.8
-  patrolSpeed: 3
-  range: 9
-  movSprite: {fileID: 0}
-  patrolVel: {x: 0, y: 0}
-  isInEndless: 1
+  player: {fileID: 313043643}
+  vel: 5
 --- !u!1 &1553643181
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,37 +640,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2048400015
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2048400016}
-  m_Layer: 0
-  m_Name: Attackpos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2048400016
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2048400015}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 822355972}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
