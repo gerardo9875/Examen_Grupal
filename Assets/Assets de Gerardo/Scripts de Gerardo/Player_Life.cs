@@ -37,26 +37,16 @@ public class Player_Life : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("PerroZombie"))
-        {
-            currentlife -= 1;
-            if (currentlife <= 0)
-            {
-                Destroy(gameObject);
-            }
-        }
-    }
-
-    IEnumerator RecieveDamage()
-    {
-        canRecieveDamage = false;
-
-        yield return new WaitForSeconds(1);
-
-        canRecieveDamage = true;
-    }
-
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.collider.CompareTag("PerroZombie"))
+    //    {
+    //        currentlife -= 1;
+    //        if (currentlife <= 0)
+    //        {
+    //            Destroy(gameObject);
+    //        }
+    //    }
+    //}
   
 }

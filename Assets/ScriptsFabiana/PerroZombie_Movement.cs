@@ -1,16 +1,9 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using System.Transactions;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Rendering;
 
 public class PerroZombi_movement : MonoBehaviour
 {
-    Vector2 Enemypos;
+    Vector2 Enemypos, patrullaDireccion;
 
     public GameObject player;
     bool seguir;
@@ -25,31 +18,51 @@ public class PerroZombi_movement : MonoBehaviour
     {
         timer = maxTimer;
         life = GetComponent<Player_Life>();
+        StartCoroutine(Patrulla());
     }
 
     private void Update()
     {
-        if (seguir)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, Enemypos, vel * Time.deltaTime);    
-        }
+        //if (!seguir) return; //Cuando no este siguiendo se va a detener
 
-        if (Vector2.Distance(transform.position, Enemypos) > 12f)
-        {
-            seguir = false;
-        }
+        Vector2 target;
+        if(seguir==true)target = Enemypos;
+        else { target = patrullaDireccion; }
+
+        transform.position = Vector2.MoveTowards(transform.position, target, vel * Time.deltaTime);
+        
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.tag.Equals("Player")) 
         {
-            Enemypos = player.transform.position;
+            Vector3 distancia= player.transform.position - transform.position ;
+            Enemypos = player.transform.position - distancia.normalized;
             seguir = true;
         }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Player"))
+        {
+            seguir = false; //nombre de la variable del update
+        }
+
+
 
     }
+    IEnumerator Patrulla()
+    {
+        while(true) //para hacer un loop de direcciones
+        {
+            patrullaDireccion= new Vector2 (-5,2);
+            yield return new WaitForSeconds(10);
+            patrullaDireccion = new Vector2(5,2);
+            yield return new WaitForSeconds(10);
+        }
+        
+    }
 
-    
 
 }
